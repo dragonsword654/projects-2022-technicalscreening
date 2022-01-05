@@ -17,6 +17,7 @@ A good solution is favourable but does not guarantee a spot in Projects because
 we will also consider many other criteria.
 """
 import json
+import re
 
 # NOTE: DO NOT EDIT conditions.json
 with open("./conditions.json") as f:
@@ -34,8 +35,24 @@ def is_unlocked(courses_list, target_course):
     """
     
     # TODO: COMPLETE THIS FUNCTION!!!
-    
-    return True
+    # I don't know any other way of doing this instead of hard coding every subject
+    # and i dont think that is correct.
+    print(CONDITIONS)
+    for line in CONDITIONS:
+        # target course 
+        print(line)
+        if target_course in line.split()[0]:
+            # gets a list of all courses 
+            required = re.findall("\d{4}", line.split(':', 1)[0])
+            print(required)
+            for course in courses_list:
+                if course in required:
+                    required.remove(course)
+            
+    if len(required) == 0:
+        return True
+    else:
+        return False
 
 
 
